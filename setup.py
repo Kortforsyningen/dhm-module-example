@@ -27,8 +27,11 @@ CLASSIFIERS = [
     "Topic :: Scientific/Engineering :: GIS",
 ]
 # The base module is required here:
-INSTALL_REQUIRES = ["click", "click_plugins", "dhm_module_base"]
-
+INSTALL_REQUIRES = [
+    "click",
+    "click_plugins",
+    "dhm_module_base @ git+https://github.com/Kortforsyningen/dhm-module-base.git",
+]
 EXTRAS_REQUIRE = {"dev": ["pytest", "black"]}
 ENTRY_POINTS = """
       [dhm_module_base.plugins]
