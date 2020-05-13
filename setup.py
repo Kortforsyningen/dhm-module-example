@@ -28,7 +28,7 @@ CLASSIFIERS = [
 ]
 # The base module is required here:
 INSTALL_REQUIRES = [
-    "click",
+    "click>=7.1",
     "click_plugins",
     "dhm_module_base @ git+https://github.com/Kortforsyningen/dhm-module-base.git",
 ]

@@ -30,6 +30,6 @@ def test_cli_plugin_registers(cli_runner):
         cli_runner (CliRunner): Defined in conftest.py
     """
     result = cli_runner.invoke(cli, ["inout", "--help"])
-    expected = "Usage: dhm_module_base inout [OPTIONS] INFILE OUTFILE"
+    expected = "Usage: dhm_module_base inout [OPTIONS] [INFILE]... OUTFILE"
     assert result.exit_code == 0
     assert result.output.split("\n")[0] == expected
