@@ -16,7 +16,6 @@ def test_inout(cli_runner, infile, outfile):
     )
 
     assert result.exit_code == 0
-
     assert outfile.is_file()
     # Compare file size
     assert infile.stat().st_size == outfile.stat().st_size

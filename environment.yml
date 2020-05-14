@@ -6,3 +6,4 @@ dependencies:
   - click-plugins>=1.0.0
   - python=3.7
   - pip
+  - gdal>=2.3
