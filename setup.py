@@ -36,6 +36,7 @@ EXTRAS_REQUIRE = {"dev": ["pytest", "black"]}
 ENTRY_POINTS = """
       [dhm_module_base.plugins]
       inout=dhm_module_example.core:inout
+      pipe=dhm_module_example.core:pipe
 
 """
 

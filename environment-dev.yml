@@ -11,3 +11,4 @@ dependencies:
   - pylint
   - pydocstyle
   - pip
+  - gdal>=2.3
