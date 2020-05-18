@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 @click.command()
 @click.argument("infile", type=click.File("rb"), nargs=-1)
 @click.argument("outfile", type=click.File("wb"))
-def inout(infile, outfile):
+@click.pass_context
+def inout(ctx, infile, outfile):
     """Example command inout.
 
     Writes the contents of infile to outfile. If outfile does not exist it is created,
