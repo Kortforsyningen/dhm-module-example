@@ -1,8 +1,10 @@
 import codecs
 import os
 import re
+import sys
 
 from setuptools import find_packages, setup
+from setuptools.command.install import install
 
 ##############################################################################
 NAME = "dhm_module_example"
@@ -30,7 +32,7 @@ CLASSIFIERS = [
 INSTALL_REQUIRES = [
     "click>=7.1",
     "click_plugins",
-    "dhm_module_base @ git+https://github.com/Kortforsyningen/dhm-module-base.git",
+    "dhm_module_base>=0.0.1",
 ]
 EXTRAS_REQUIRE = {"dev": ["pytest", "black"]}
 ENTRY_POINTS = """
@@ -70,12 +72,40 @@ def find_meta(meta):
     raise RuntimeError("Unable to find __{meta}__ string.".format(meta=meta))
 
 
+def readme():
+    """Print long description."""
+    with open("README.md") as desc:
+        return desc.read()
+
+
+VERSION = find_meta("version")
+
+
+class VerifyVersionCommand(install):
+    """Command to check if Git Tag matches Package version."""
+
+    description = "Verify that the git tag matches our version"
+
+    def run(self):
+        """Run VerifyVersionCommand."""
+        # CircleCI release tag
+        tag = os.getenv("CIRCLE_TAG")
+
+        if tag != VERSION:
+            info = "Git tag: {0} does not match the version of this app: {1}".format(
+                tag, VERSION
+            )
+            # Check if sys.exit(info) is too intrusive
+            sys.exit(info)
+
+
 if __name__ == "__main__":
     setup(
         name=NAME,
-        version=find_meta("version"),
+        version=VERSION,
         description=find_meta("description"),
-        long_description="",
+        long_description=readme(),
+        long_description_content_type="text/markdown",
         classifiers=CLASSIFIERS,
         keywords=KEYWORDS,
         author=find_meta("author"),
@@ -89,4 +119,5 @@ if __name__ == "__main__":
         install_requires=INSTALL_REQUIRES,
         extras_require=EXTRAS_REQUIRE,
         entry_points=ENTRY_POINTS,
+        cmdclass={"verify": VerifyVersionCommand},
     )
