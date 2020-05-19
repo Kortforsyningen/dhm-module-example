@@ -8,16 +8,29 @@ logger = logging.getLogger(__name__)
 
 
 @click.command()
+@click.argument("prop", type=str)
+@click.option("-s", "--section", default="DEFAULT")
+@click.pass_context
+def configuration(ctx, section, prop):
+    """Example command configuration.
+
+    Use @click.pass_context to get the CLI context. The CLI context contains the configuration object
+    """
+    # The config object from the current context inherited from the base CLI
+    config = ctx.obj["config"]
+
+    click.echo(config.get(section, prop))
+
+
+@click.command()
 @click.argument("infile", type=click.File("rb"), nargs=-1)
 @click.argument("outfile", type=click.File("wb"))
-# @click.pass_context
 def inout(infile, outfile):
     """Example command inout.
 
     Writes the contents of infile to outfile. If outfile does not exist it is created,
     if it exists it is overwritten only if --overwrite is set explicitly to true.
     """
-    # Returns True for files and directories
     for f in infile:
         while True:
             chunk = f.read(1024)
