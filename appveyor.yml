@@ -28,7 +28,7 @@ install:
   - conda update -q conda
   - conda info -a
   - "conda env create -f environment-dev.yml"
-  - activate dhm_module_base_dev
+  - activate dhm_module_example_dev
   # - pip install -r requirements.txt
   - pip install ".[dev]"
 
